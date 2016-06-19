@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<div class="doctorList-container">
+<table id="doctorList">
+
+</table>
+
+</div>
+
+<div class="add-container">
+<p class="item">
+    头衔：<input id="input-title" type="text" />
+</p>
+    <p class="item">
+        名字：<input id="input-name" type="text" />
+    </p>
+    <p class="item">
+        描述：<input id="input-spec" type="text" />
+    </p>
+    <p class="item">
+        简介：<input id="input-desc" type="text" />
+    </p>
+    <button id="submit">添加</button>
+</div>
+<div class="list-container">
+
+</div>
+<script src="../javascripts/jquery.min.js"></script>
+<script src="../javascripts/netclient.js"></script>
+<script>
+    var netclient=new NetClient();
+    getList();
+    $('#submit').on('click',function(){
+        var title=$('#input-title').val();
+        var name=$('#input-name').val();
+        var spec=$('#input-spec').val();
+        var desc=$('#input-desc').val();
+        var params={
+            title:title,
+            name:name,
+            spec:spec,
+            desc:desc,
+        };
+        netclient.getData('doctor','addDoctor',params,function (data) {
+            console.log(data);
+        })
+
+    });
+    function getList(){
+        netclient.getData('doctor','selectAllDoctors',{a:'a'},function (data) {
+            console.log(data);
+        })
+    }
+</script>
+</body>
+</html>
