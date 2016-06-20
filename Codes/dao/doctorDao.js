@@ -24,7 +24,7 @@ module.exports = {
     addModel:function (param,callback) {
         pool.getConnection(function (err, connection) {
             // 建立连接，向表中插入值
-            connection.query($sql.insert, [param.guid, param.json], function (err, result) {
+            connection.query($sql.insert, [param.id, param.json], function (err, result) {
                 if (err) {
                     console.log(err);
                 }
@@ -44,7 +44,29 @@ module.exports = {
             });
         });
     },
-    
+    updateModel:function (param,callback) {
+        pool.getConnection(function (err, connection) {
+            // 建立连接，向表中插入值
+            connection.query($sql.update, [param.json, param.id], function (err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                if (result) {
+                    result = {
+                        code: 200,
+                        msg: '增加成功'
+                    };
+                }
+                if (callback) {
+                    callback(result);
+                }
+
+
+                // 释放连接
+                connection.release();
+            });
+        });
+    },
     add: function (param, callback) {
         pool.getConnection(function (err, connection) {
 

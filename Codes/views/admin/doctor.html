@@ -6,11 +6,19 @@
 
 </head>
 <style>
-    .list-container{
-        padding: 5px;
+    body{
+
+    }
+    .list-container {
+        padding: 50px;
+
+    }
+
+    .row:hover {
         background-color: grey;
     }
-    .item{
+
+    .item {
         display: inline-block;
         margin: 10px;
     }
@@ -18,24 +26,24 @@
 <body>
 
 <div class="doctorList-container">
-<table id="doctorList">
+    <table id="doctorList">
 
-</table>
+    </table>
 
 </div>
 
 <div class="add-container">
-<p class="item">
-    头衔：<input id="input-title" type="text" />
-</p>
     <p class="item">
-        名字：<input id="input-name" type="text" />
+        头衔：<input id="input-title" type="text"/>
     </p>
     <p class="item">
-        描述：<input id="input-spec" type="text" />
+        名字：<input id="input-name" type="text"/>
     </p>
     <p class="item">
-        简介：<input id="input-desc" type="text" />
+        描述：<input id="input-spec" type="text"/>
+    </p>
+    <p class="item">
+        简介：<input id="input-desc" type="text"/>
     </p>
     <button id="submit">添加</button>
 </div>
@@ -45,41 +53,61 @@
 <script src="../javascripts/jquery.min.js"></script>
 <script src="../javascripts/netclient.js"></script>
 <script>
-    var netclient=new NetClient();
+    var netclient = new NetClient();
+    var curItem;
     getList();
-    $('#submit').on('click',function(){
-        var title=$('#input-title').val();
-        var name=$('#input-name').val();
-        var spec=$('#input-spec').val();
-        var desc=$('#input-desc').val();
-        var params={
-            title:title,
-            name:name,
-            spec:spec,
-            desc:desc,
-        };
-        netclient.getData('doctor','addModel',params,function (data) {
-           getList();
-        })
+    $('#submit').on('click', function () {
+        var title = $('#input-title').val();
+        var name = $('#input-name').val();
+        var spec = $('#input-spec').val();
+        var desc = $('#input-desc').val();
+        if (!curItem) {
+            curItem = {};
+        }
+        curItem.title = title;
+        curItem.name = name;
+        curItem.spec = spec;
+        curItem.desc = desc;
+
+        netclient.getData('doctor', 'saveOrUpdateModel', curItem, function (data) {
+            getList();
+            curItem = null;
+        });
 
     });
-    function getList(){
-        netclient.getData('doctor','selectAllDoctors',{a:'a'},function (data) {
-            var container=$('#list-container');
-            var html='';
-            for(var i=0;i<data.length;i++){
-                var item=data[i];
-                if(typeof(item.json)=='string'){
-                    item.json=JSON.parse(item.json);
+    function getList() {
+        netclient.getData('doctor', 'selectAllDoctors', {a: 'a'}, function (data) {
+            var listContainer = $('#list-container');
+            var container = document.createDocumentFragment();
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (typeof(item.json) == 'string') {
+                    item.json = JSON.parse(item.json);
                 }
-                html+='<div class="row">\
-                        <span id="title" class="item">'+item.json["title"]+'</span>\
-                        <span id="name" class="item">'+item.json["name"]+'</span>\
-                        <span id="desc" class="item">'+item.json["desc"]+'</span>\
-                        \ <span id="spec" class="item">'+item.json["spec"]+'</span>\
-                        </div>';
+                var row = document.createElement('div');
+                row.className = 'row';
+                $(row).html('<div class="row">\
+                        <span id="title" class="item">' + item.json["title"] + '</span>\
+                        <span id="name" class="item">' + item.json["name"] + '</span>\
+                        <span id="desc" class="item">' + item.json["desc"] + '</span>\
+                        <span id="spec" class="item">' + item.json["spec"] + '</span>\
+                        </div>');
+                container.appendChild(row);
+                editModel(row,item);
             }
-            container.html(html);
+            listContainer.html('');
+            listContainer[0].appendChild(container);
+        });
+    }
+    function  editModel(row,item) {
+        $(row).on('click', function () {
+            curItem = item.json;
+            curItem.id = item.id;
+            $('#input-title').val(item.json['title']);
+            $('#input-name').val(item.json['name']);
+            $('#input-desc').val(item.json['desc']);
+            $('#input-spec').val(item.json['spec']);
         });
     }
 </script>
