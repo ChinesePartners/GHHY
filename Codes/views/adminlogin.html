@@ -1,0 +1,33 @@
+    <div class="login-form">
+        <input type="text" id="name"  class="form-control" placeholder="用户名"/>
+        <input type="password" id="password" class="form-control" placeholder="密码">
+        <button id="submit" class="btn btn-primary" type="button">提交</button>
+    </div>
+
+
+    <script type="text/javascript" src="../javascripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        $('#submit').click(function () {
+        var name=$('#name').val().trim();
+        var password=$('#password').val().trim();
+        $.ajax({
+            type:'post',
+            url:'/login',
+            data:{
+                name:name,
+                password:password
+            },
+            error:function () {
+                alert('失败');
+            },
+            success:function (data) {
+                if(data=='success'){
+                    location.href='admin/home';
+                }else{
+                    alert('登录失败');
+                }
+            }
+        });
+    });
+
+    </script>

@@ -5,8 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-//tooth是网站主页面，route以此为基始
-var routes = require('./routes/tooth');
+//tooth 是网站主页面，route 以此为基始
+ var routes = require('./routes/tooth');
 var users = require('./routes/users');
 var guide = require('./routes/guide');
 var order =require('./routes/order');
@@ -16,13 +16,14 @@ var hospital = require('./routes/hospital');
 var setting = require('./routes/setting');
 var branch = require('./routes/branch');
 var skill = require('./routes/skill');
+var adminlogin = require('./routes/adminlogin');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //app.engine('html', require('ejs').renderFile);
-//下面两行为了用母版页
+// 下面两行为了用母版页
 app.engine('html', require('ejs-mate'));
 app.locals._layoutFile = 'layout.html';
 app.set('view engine', 'html');
@@ -30,7 +31,7 @@ app.set('view engine', 'html');
 
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname,'public','favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -80,4 +81,3 @@ app.listen(3008);
 console.log('i am running')
 
 module.exports = app;
-
