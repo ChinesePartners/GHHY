@@ -103,6 +103,9 @@ if(callback){
   },
   queryAll: function (params,callback) {
     pool.getConnection(function(err, connection) {
+      if(err){
+        console.dir(err);
+      }
       connection.query($sql.queryAll, function(err, result) {
         callback(result);
         connection.release();

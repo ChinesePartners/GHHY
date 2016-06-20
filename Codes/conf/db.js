@@ -2,8 +2,8 @@
 module.exports = {
   mysql: {
     host: '127.0.0.1', 
-    user: 'ghhy',
-    password: 'ghhy',
+    user: 'iot',
+    password: '123@yny',
     database:'toothdb', 
     port: 3306
   }

@@ -55,8 +55,14 @@
     });
     function getList(){
         netclient.getData('doctor','selectAllDoctors',{a:'a'},function (data) {
-            console.log(data);
-        })
+            var item=data[0];
+            console.log(item.id);
+            if(typeof(item.json)=='string'){
+                item.json=JSON.parse(item.json);
+            }
+            console.log(item.json);
+            console.log(item.json.msg);
+        });
     }
 </script>
 </body>

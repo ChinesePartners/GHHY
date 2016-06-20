@@ -9,7 +9,7 @@ function doctor() {
      * @param params
      */
     this.getAllDoctor=function (params) {
-        
+     
     };
     this.addDoctor=function (params) {
         console.dir(params);
