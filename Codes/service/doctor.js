@@ -9,16 +9,17 @@ function doctor() {
      * @param params
      */
     this.getAllDoctor=function (params) {
-     
+
     };
-    this.addDoctor=function (params) {
+    this.addModel=function (params) {
         console.dir(params);
         var guid=uuid.v4();
-        params.guid=guid;
-        doctorDao.add(params,function (result) {
+        var obj={};
+        obj.guid=guid;
+        obj.json=JSON.stringify(params);
+        doctorDao.addModel(obj,function (result) {
             params.doneService(result);
         });
-
     };
     this.selectAllDoctors=function (params) {
         doctorDao.queryAll(null,function (result) {

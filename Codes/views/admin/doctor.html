@@ -5,6 +5,16 @@
     <title>Title</title>
 
 </head>
+<style>
+    .list-container{
+        padding: 5px;
+        background-color: grey;
+    }
+    .item{
+        display: inline-block;
+        margin: 10px;
+    }
+</style>
 <body>
 
 <div class="doctorList-container">
@@ -29,7 +39,7 @@
     </p>
     <button id="submit">添加</button>
 </div>
-<div class="list-container">
+<div id="list-container" class="list-container">
 
 </div>
 <script src="../javascripts/jquery.min.js"></script>
@@ -48,20 +58,28 @@
             spec:spec,
             desc:desc,
         };
-        netclient.getData('doctor','addDoctor',params,function (data) {
-            console.log(data);
+        netclient.getData('doctor','addModel',params,function (data) {
+           getList();
         })
 
     });
     function getList(){
         netclient.getData('doctor','selectAllDoctors',{a:'a'},function (data) {
-            var item=data[0];
-            console.log(item.id);
-            if(typeof(item.json)=='string'){
-                item.json=JSON.parse(item.json);
+            var container=$('#list-container');
+            var html='';
+            for(var i=0;i<data.length;i++){
+                var item=data[i];
+                if(typeof(item.json)=='string'){
+                    item.json=JSON.parse(item.json);
+                }
+                html+='<div class="row">\
+                        <span id="title" class="item">'+item.json["title"]+'</span>\
+                        <span id="name" class="item">'+item.json["name"]+'</span>\
+                        <span id="desc" class="item">'+item.json["desc"]+'</span>\
+                        \ <span id="spec" class="item">'+item.json["spec"]+'</span>\
+                        </div>';
             }
-            console.log(item.json);
-            console.log(item.json.msg);
+            container.html(html);
         });
     }
 </script>
