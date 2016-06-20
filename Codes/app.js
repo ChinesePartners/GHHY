@@ -16,7 +16,7 @@ var hospital = require('./routes/hospital');
 var setting = require('./routes/setting');
 var branch = require('./routes/branch');
 var skill = require('./routes/skill');
-var adminlogin = require('./routes/adminlogin');
+var admin = require('./routes/admin');
 
 var app = express();
 
@@ -41,8 +41,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/admin', doctor);
+app.use('/admin',admin);
+// app.use('/users', users);
+// app.use('/admin', doctor);
 
 
 // catch 404 and forward to error handler

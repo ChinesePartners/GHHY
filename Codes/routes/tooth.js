@@ -67,9 +67,9 @@ router.get('/home', function (req, res, next) {
     res.render('home');
 });
 
-router.get('/adminlogin', function (req, res, next) {
-    res.render('adminlogin');
-});
+// router.get('/adminlogin', function (req, res, next) {
+//     res.render('adminlogin');
+// });
 // router.get('/*.*', function (req, res, next) {
 //   console.log(req.url);
 //   next();
