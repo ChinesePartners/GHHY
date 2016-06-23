@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 //tooth 是网站主页面，route 以此为基始
- var routes = require('./routes/tooth');
+//Todo 这得怎么给合并一下，看着真闹心啊——spy 
+var routes = require('./routes/tooth');
 var users = require('./routes/users');
 var guide = require('./routes/guide');
 var order =require('./routes/order');
@@ -17,6 +18,7 @@ var setting = require('./routes/setting');
 var branch = require('./routes/branch');
 var skill = require('./routes/skill');
 var admin = require('./routes/admin');
+// var admin_home = require('./routes/admin_home');
 
 var app = express();
 

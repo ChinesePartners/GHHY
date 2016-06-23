@@ -3,15 +3,17 @@ var router = express.Router();
 
 /* GET home page. */
 
-router.get('/', function (req, res, next) {
-  res.render('adminlogin');
+router.get('/adminlogin', function (req, res, next) {
+  res.render('admin/adminlogin', { layout: 'adminlayout' });
 });
-router.get('/doctor',function (req,res,next) {
-    res.render('admin/doctor');
+
+router.get('/admindoctor',function (req,res,next) {
+    res.render('admin/admindoctor', { layout: 'adminlayout' });
 });
-// router.get('admin/home', function (req, res, next) {
-//   res.render('admin/home');
-// });
+
+router.get('/home', function (req, res, next) {
+  res.render('admin/home', { layout: 'adminlayout' });
+});
 
 router.post('/login', function (req, res, next) {
   var params = req.body;
