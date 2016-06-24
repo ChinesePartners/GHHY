@@ -5,7 +5,7 @@ router.use(function (req,res,next) {
    var url=req.url;
     console.log(url);
     if(url.substring(0,6)=='/admin'){
-        if(url=='/admin'|| url=='/admin/login'){
+        if(url=='/admin/adminLogin'||url=='/admin/login'){
             next();
         }else{//后台管理的请求需要验证session
             var cookie=req.headers.cookie;
@@ -15,10 +15,10 @@ router.use(function (req,res,next) {
                 if(global.session&&global.session[id]){
                     next();
                 }else{
-                    res.redirect('/admin');
+                    res.redirect('/admin/adminLogin');
                 }
             }else{
-                res.redirect('/admin');
+                res.redirect('/admin/adminLogin');
             }
         }
     }else{
