@@ -5,7 +5,7 @@
     </div>
 
 
-    <script type="text/javascript" src="../javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="../../javascripts/jquery.min.js"></script>
     <script type="text/javascript">
         $('#submit').click(function () {
         var name=$('#name').val().trim();
@@ -22,7 +22,7 @@
             },
             success:function (data) {
                 if(data=='success'){
-                    location.href='admin/home';
+                    location.href='home';
                 }else{
                     alert('登录失败');
                 }

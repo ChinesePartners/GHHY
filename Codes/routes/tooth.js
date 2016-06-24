@@ -86,14 +86,12 @@ router.get('/skill', function (req, res, next) {
     res.render('skill');
 });
 
-
-router.get('/home', function (req, res, next) {
-    res.render('home');
-});
-
-// router.get('/adminlogin', function (req, res, next) {
-//     res.render('adminlogin');
+// router.get('admin/adminlogin', function (req, res, next) {
+//     res.render('admin/adminlogin',{ layout: null });
 // });
+
+
+
 // router.get('/*.*', function (req, res, next) {
 //   console.log(req.url);
 //   next();
