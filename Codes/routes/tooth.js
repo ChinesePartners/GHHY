@@ -1,6 +1,30 @@
 var express = require('express');
 var router = express.Router();
 var querystring=require('querystring');
+router.use(function (req,res,next) {
+   var url=req.url;
+    console.log(url);
+    if(url.substring(0,6)=='/admin'){
+        if(url=='/admin'|| url=='/admin/login'){
+            next();
+        }else{//后台管理的请求需要验证session
+            var cookie=req.headers.cookie;
+            var items=cookie.split('=');
+            if(items.length==2&&items[0]=='adminLogin'){
+                var id=items[1];
+                if(global.session&&global.session[id]){
+                    next();
+                }else{
+                    res.redirect('/admin');
+                }
+            }else{
+                res.redirect('/admin');
+            }
+        }
+    }else{
+        next();
+    }
+});
 
 router.get('/', function (req, res, next) {
     res.render('tooth');
